@@ -1,6 +1,7 @@
 #include <QPainter>
 
 #include "view.h"
+#include "Base/Helpers/helpers.h"
 
 View::View() {
   show();
@@ -17,4 +18,11 @@ void View::paintEvent(QPaintEvent*) {
   painter.setPen(Qt::blue);
   painter.setFont(QFont("Arial", 30));
   painter.drawText(rect(), Qt::AlignCenter, "Qt");;
+}
+
+void View::ConnectUI() {
+  connect(menu_->actions()[static_cast<int>(MenuBarOrder::kExit)],
+          &QAction::triggered,
+          this,
+          &View::ExitRequested);
 }

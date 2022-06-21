@@ -11,9 +11,11 @@ class View : public QMainWindow {
   void SetMenu(QMenuBar* menu);
 
  signals:
+  void ExitRequested();
 
  private:
   void paintEvent(QPaintEvent*) override;
+  void ConnectUI();
 
  QMenuBar* menu_{};
 };

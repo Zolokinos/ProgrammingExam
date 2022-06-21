@@ -7,7 +7,7 @@ void AudioPlayer::TurnOn() {
 
 void AudioPlayer::CreateAudioOutput() {
   auto* audioOutput = new QAudioOutput(this);
-  audioOutput->setVolume(25);
+  audioOutput->setVolume(0.1);
   setAudioOutput(audioOutput);
   setLoops(QMediaPlayer::Infinite);
 }
