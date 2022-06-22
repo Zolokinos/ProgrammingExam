@@ -18,6 +18,8 @@ class MainController : public QWidget {
   static void Exit();
   void SetCenter(QPoint point);
   void SetColor(int num);
+  void CallColorDialog();
+  void FromValueChange(const QString& from);
 
   Model* model_{};
   View* view_;

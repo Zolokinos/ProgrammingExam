@@ -4,6 +4,8 @@
 #include <QMenuBar>
 #include <QMouseEvent>
 #include <QShortcut>
+#include <QPoint>
+#include <QColor>
 
 class View : public QMainWindow {
  Q_OBJECT
@@ -13,6 +15,7 @@ class View : public QMainWindow {
   void SetMenu(QMenuBar* menu);
   void ConnectUI();
   void SetShortCut(QShortcut* shortcut);
+  void DrawCircle(QPoint point, QColor color, QColor color_pen_, int rad);
 
  signals:
   void ExitRequested();

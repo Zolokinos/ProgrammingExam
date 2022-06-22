@@ -24,6 +24,14 @@ void MainController::ConnectUI() {
           &Settings::RadioButtonClicked,
           this,
           &MainController::SetColor);
+  connect(view_,
+          &View::CallDialog,
+          this,
+          &MainController::CallColorDialog);
+  connect(settings_,
+          &Settings::FromTextChanged,
+          this,
+          &MainController::FromValueChange);
 }
 
 void MainController::Exit() {
@@ -31,9 +39,20 @@ void MainController::Exit() {
 }
 
 void MainController::SetCenter(QPoint point) {
-
+  model_->SetCenterCircle(point);
 }
 
 void MainController::SetColor(int num) {
   model_->SetFillColor(num);
+}
+
+void MainController::CallColorDialog() {
+  model_->CreateDialog();
+}
+
+void MainController::FromValueChange(const QString& from) {
+  std::string string = from.toStdString();
+  std::string first = string.substr(0, string.find(' '));
+  string.erase(string.find(' '));
+  std::string second = string;
 }

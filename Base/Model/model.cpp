@@ -7,9 +7,15 @@ Model::Model(View* view, Settings* settings) :
     settings_(settings),
     menu_(new QMenuBar),
     audio_player_(new AudioPlayer),
-    spin_box_(new QSpinBox(this)),
-    color(QColor(Qt::black)),
-    buttons_(new QButtonGroup) {
+    color_(QColor(Qt::black)),
+    color_pen_(QColor(Qt::black)),
+    buttons_(new QButtonGroup),
+    from_x_point_(new QLineEdit),
+    from_y_point_(new QLineEdit),
+    to_x_point_(new QLineEdit),
+    to_y_point_(new QLineEdit),
+    spin_box_(new QSpinBox),
+    combo_box_(new QComboBox) {
   SetAudio();
   SetMenu();
   SetView();
@@ -34,7 +40,7 @@ void Model::SetUI() {
 }
 
 void Model::SetCenterCircle(QPoint point) {
-
+  view_->DrawCircle(point, color_, color_pen_, radius_);
 }
 
 void Model::SetView() {
@@ -43,12 +49,12 @@ void Model::SetView() {
 }
 
 void Model::SetSettings() {
-  buttons_->addButton(new QRadioButton("Fill red"), 0);
-  buttons_->addButton(new QRadioButton("Fill blue"), 1);
-  buttons_->addButton(new QRadioButton("Fill black"), 2);
-  assert(!buttons_->buttons().empty());
-  settings_->SetRadioButtons(buttons_);
   settings_->SetLayout();
+
+  SetRadioButtons();
+  SetLineEdits();
+  SetSpinBox();
+  SetComboBox();
 }
 
 void Model::SetFillColor(int num) {
@@ -70,6 +76,41 @@ void Model::SetFillColor(int num) {
       exit(1);
     }
   }
+}
+
+void Model::SetRadioButtons() {
+  buttons_->addButton(new QRadioButton("Fill red"), 0);
+  buttons_->addButton(new QRadioButton("Fill blue"), 1);
+  buttons_->addButton(new QRadioButton("Fill black"), 2);
+  assert(!buttons_->buttons().empty());
+  settings_->SetRadioButtons(buttons_);
+}
+
+void Model::SetLineEdits() {
+  settings_->SetLineEdits(from_x_point_,
+                          from_y_point_,
+                          to_x_point_,
+                          to_y_point_);
+}
+
+void Model::SetSpinBox() {
+  settings_->SetSpinBox(spin_box_);
+}
+
+void Model::SetComboBox() {
+  combo_box_->addItems({"", "1", "10"});
+
+  settings_->SetComboBox(combo_box_);
+}
+
+void Model::CreateDialog() {
+  QColorDialog* dialog = new QColorDialog;
+  dialog->open();
+  color_pen_ = dialog->currentColor();
+}
+
+void Model::SetFrom(int from) {
+
 }
 
 

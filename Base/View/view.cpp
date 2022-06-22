@@ -5,6 +5,7 @@
 #include "Base/Helpers/helpers.h"
 
 View::View() {
+  setFixedSize(800, 600);
   show();
 }
 
@@ -34,5 +35,12 @@ void View::mousePressEvent(QMouseEvent* event) {
 
 void View::SetShortCut(QShortcut* shortcut) {
   call_paint_message_ = shortcut;
+}
+
+void View::DrawCircle(QPoint point, QColor color, QColor color_pen, int rad) {
+  QPainter p(this);
+  p.setBrush(color);
+  p.setPen(color_pen);
+  p.drawEllipse(point.x() - rad, point.y() - rad, rad, rad);
 }
 
