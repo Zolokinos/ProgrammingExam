@@ -12,6 +12,7 @@ Model::Model(View* view, Settings* settings) :
     from_y_point_(new QLineEdit),
     to_x_point_(new QLineEdit),
     to_y_point_(new QLineEdit),
+    dialog_(new QColorDialog),
     spin_box_(new QSpinBox),
     combo_box_(new QComboBox),
     is_intersection_(new QLabel("")) {
@@ -52,6 +53,7 @@ void Model::SetCenterCircle(QPoint point) {
 void Model::SetView() {
   call_paint_message_ = new QShortcut(Qt::Key_Space, view_);
   view_->SetShortCut(call_paint_message_);
+  view_->SetColorDialog(dialog_);
 }
 
 void Model::SetSettings() {
@@ -115,9 +117,7 @@ void Model::SetComboBox() {
 }
 
 void Model::CreateDialog() {
-  QColorDialog* dialog = new QColorDialog;
-  dialog->open();
-  color_pen_ = dialog->currentColor();
+  dialog_->open();
 }
 
 void Model::ChangeRadius(int rad) {
@@ -126,4 +126,8 @@ void Model::ChangeRadius(int rad) {
 
 void Model::ChangePenThickness(int thickness) {
   thickness_ = thickness;
+}
+
+void Model::SetPenColor(QColor color) {
+  color_pen_ = color;
 }

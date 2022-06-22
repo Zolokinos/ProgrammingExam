@@ -1,5 +1,4 @@
 #include <QPainter>
-#include <iostream>
 
 #include "view.h"
 #include "Base/Helpers/helpers.h"
@@ -20,22 +19,20 @@ void View::SetMenu(QMenuBar* menu) {
 }
 
 void View::paintEvent(QPaintEvent*) {
-  if (is_circle_) {
-    QPainter painter(this);
-    QPen pen;
-    pen.setColor(circle_.color_pen);
-    pen.setWidth(circle_.thickness);
-    painter.setPen(pen);
-    QBrush brush;
-    brush.setColor(circle_.fill_color);
-    brush.setStyle(Qt::BrushStyle::Dense7Pattern);
-    painter.setBrush(brush);
+  QPainter painter(this);
+  QPen pen;
+  pen.setColor(circle_.color_pen);
+  pen.setWidth(circle_.thickness);
+  painter.setPen(pen);
+  QBrush brush;
+  brush.setColor(circle_.fill_color);
+  brush.setStyle(Qt::BrushStyle::Dense7Pattern);
+  painter.setBrush(brush);
 
-    painter.drawEllipse(circle_.central_circle.x() - circle_.radius,
-                        circle_.central_circle.y() - circle_.radius,
-                        2 * circle_.radius,
-                        2 * circle_.radius);
-  }
+  painter.drawEllipse(circle_.central_circle.x() - circle_.radius,
+                      circle_.central_circle.y() - circle_.radius,
+                      2 * circle_.radius,
+                      2 * circle_.radius);
 }
 
 void View::ConnectUI() {
@@ -43,6 +40,10 @@ void View::ConnectUI() {
           &QShortcut::activated,
           this,
           &View::CallDialog);
+  connect(dialog_,
+          &QColorDialog::colorSelected,
+          this,
+          &View::ColorDialogColorSelected);
 }
 
 void View::mousePressEvent(QMouseEvent* event) {
@@ -58,5 +59,9 @@ void View::SendCircle(Circle circle) {
   is_circle_ = true;
 
   repaint();
+}
+
+void View::SetColorDialog(QColorDialog* dialog) {
+  dialog_ = dialog;
 }
 

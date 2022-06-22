@@ -26,6 +26,7 @@ class Model : public QWidget {
   void SetCenterCircle(QPoint point);
   void ChangeRadius(int rad);
   void ChangePenThickness(int thickness);
+  void SetPenColor(QColor color);
 
  private:
   void SetMenu();
@@ -37,6 +38,7 @@ class Model : public QWidget {
   void SetLineEdits();
   void SetSpinBox();
   void SetComboBox();
+
   AudioPlayer* audio_player_;
   View* view_;
   Settings* settings_;
@@ -51,6 +53,8 @@ class Model : public QWidget {
 
   QPoint from_;
   QPoint to_;
+
+  QColorDialog* dialog_;
 
   QButtonGroup* buttons_;
   QLineEdit* from_x_point_;

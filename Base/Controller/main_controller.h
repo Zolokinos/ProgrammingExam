@@ -20,7 +20,8 @@ class MainController : public QWidget {
   void SetColor(int num);
   void CallColorDialog();
   void ChangeRadius(int rad);
-  void ChangePenThickness(QString pen_thickness);
+  void ChangePenThickness(const QString& pen_thickness);
+  void ChangeColorPen(QColor color);
 
   Model* model_{};
   View* view_;

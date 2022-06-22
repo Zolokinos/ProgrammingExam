@@ -6,6 +6,7 @@
 #include <QShortcut>
 #include <QPoint>
 #include <QColor>
+#include <QColorDialog>
 #include "Base/Helpers/helpers.h"
 
 class View : public QMainWindow {
@@ -17,11 +18,13 @@ class View : public QMainWindow {
   void ConnectUI();
   void SetShortCut(QShortcut* shortcut);
   void SendCircle(Circle circle);
+  void SetColorDialog(QColorDialog* dialog);
 
  signals:
   void ExitRequested();
   void Clicked(QPoint point);
   void CallDialog();
+  void ColorDialogColorSelected(QColor color);
 
  private:
   void paintEvent(QPaintEvent*) override;
@@ -31,6 +34,7 @@ class View : public QMainWindow {
   Circle circle_{};
   QMenuBar* menu_{};
   QShortcut* call_paint_message_{};
+  QColorDialog* dialog_;
 };
 
 #endif // BASE_CONTROLLER_VIEW_H__

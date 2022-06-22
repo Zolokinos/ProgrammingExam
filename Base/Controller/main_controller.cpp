@@ -36,7 +36,10 @@ void MainController::ConnectUI() {
           &Settings::PenThicknessChanged,
           this,
           &MainController::ChangePenThickness);
-
+  connect(view_,
+          &View::ColorDialogColorSelected,
+          this,
+          &MainController::ChangeColorPen);
 }
 
 void MainController::Exit() {
@@ -59,7 +62,11 @@ void MainController::ChangeRadius(int rad) {
   model_->ChangeRadius(rad);
 }
 
-void MainController::ChangePenThickness(QString pen_thickness) {
+void MainController::ChangePenThickness(const QString& pen_thickness) {
   int thickness = pen_thickness.toInt();
   model_->ChangePenThickness(thickness);
+}
+
+void MainController::ChangeColorPen(QColor color) {
+  model_->SetPenColor(color);
 }
