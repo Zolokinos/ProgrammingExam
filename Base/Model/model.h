@@ -15,6 +15,7 @@ class Model : public QWidget {
  private:
   void SetMenu();
   void SetAudio();
+  void SetUI();
 
   AudioPlayer* audio_player_;
   View* view_;

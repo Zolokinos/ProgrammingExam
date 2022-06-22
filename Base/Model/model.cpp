@@ -17,3 +17,7 @@ void Model::SetAudio() {
   audio_player_->ChooseStream(QUrl("qrc:00199.mp3"));
   audio_player_->TurnOn();
 }
+
+void Model::SetUI() {
+  view_->ConnectUI();
+}

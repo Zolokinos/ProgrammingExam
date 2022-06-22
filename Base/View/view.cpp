@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <iostream>
 
 #include "view.h"
 #include "Base/Helpers/helpers.h"
@@ -10,7 +11,11 @@ View::View() {
 void View::SetMenu(QMenuBar* menu) {
   menu_ = menu;
   setMenuBar(menu_);
-  menu_->addAction("Exit");
+  auto exit = menu_->addAction("Exit");
+  connect(exit,
+          &QAction::triggered,
+          this,
+          &View::ExitRequested);
 }
 
 void View::paintEvent(QPaintEvent*) {
@@ -19,10 +24,5 @@ void View::paintEvent(QPaintEvent*) {
   painter.setFont(QFont("Arial", 30));
   painter.drawText(rect(), Qt::AlignCenter, "Qt");;
 }
-
 void View::ConnectUI() {
-  connect(menu_->actions()[static_cast<int>(MenuBarOrder::kExit)],
-          &QAction::triggered,
-          this,
-          &View::ExitRequested);
 }

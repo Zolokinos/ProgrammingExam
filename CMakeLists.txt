@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(TrenchWar)
+project(ProgrammingExam)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -18,13 +18,14 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 set(MODELS
-        Base/Model/model.cpp Base/Model/model.h)
+        Base/Model/model.cpp)
 
 set(VIEWS
-        Base/View/view.cpp Base/View/view.h Base/View/audioplayer.cpp Base/View/audioplayer.h)
+        Base/View/view.cpp
+        Base/View/audioplayer.cpp)
 
 set(CONTROLLERS
-        Base/Controller/main_controller.cpp Base/Controller/main_controller.h)
+        Base/Controller/main_controller.cpp)
 
 set(SOURCES
         Base/main.cpp

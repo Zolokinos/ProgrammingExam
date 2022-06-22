@@ -1,4 +1,4 @@
-#include "QApplication"
+#include <QApplication>
 #include "Controller/main_controller.h"
 
 int main(int argc, char* argv[]) {

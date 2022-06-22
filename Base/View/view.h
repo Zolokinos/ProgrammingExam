@@ -9,15 +9,15 @@ class View : public QMainWindow {
  public:
   View();
   void SetMenu(QMenuBar* menu);
+  void ConnectUI();
 
  signals:
   void ExitRequested();
 
  private:
   void paintEvent(QPaintEvent*) override;
-  void ConnectUI();
 
- QMenuBar* menu_{};
+  QMenuBar* menu_{};
 };
 
 #endif // BASE_CONTROLLER_VIEW_H__
