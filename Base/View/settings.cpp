@@ -90,20 +90,24 @@ void Settings::SetInteraction(QLabel* is_intersection) {
 void Settings::SetFocusTransition() {
   connect(from_x_point_,
           &QLineEdit::editingFinished,
-          this,
-          [&]{
+          this, [&] {
+    emit PointEditingFinished();
     from_y_point_->setFocus();
   });
   connect(from_y_point_,
           &QLineEdit::editingFinished,
-          this,
-          [&]{
+          this, [&] {
+    emit PointEditingFinished();
     to_x_point_->setFocus();
   });
   connect(to_x_point_,
           &QLineEdit::editingFinished,
-          this,
-          [&]{
+          this, [&] {
+    emit PointEditingFinished();
     to_y_point_->setFocus();
   });
+  connect(to_y_point_,
+          &QLineEdit::editingFinished,
+          this,
+          &Settings::PointEditingFinished);
 }

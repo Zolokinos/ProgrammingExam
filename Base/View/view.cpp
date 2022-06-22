@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <iostream>
 
 #include "view.h"
 #include "Base/Helpers/helpers.h"
@@ -19,20 +20,35 @@ void View::SetMenu(QMenuBar* menu) {
 }
 
 void View::paintEvent(QPaintEvent*) {
-  QPainter painter(this);
-  QPen pen;
-  pen.setColor(circle_.color_pen);
-  pen.setWidth(circle_.thickness);
-  painter.setPen(pen);
-  QBrush brush;
-  brush.setColor(circle_.fill_color);
-  brush.setStyle(Qt::BrushStyle::Dense7Pattern);
-  painter.setBrush(brush);
+  if (is_circle_) {
+    QPainter painter(this);
+    QPen pen;
+    pen.setColor(circle_.color_pen);
+    pen.setWidth(circle_.thickness);
+    painter.setPen(pen);
+    QBrush brush;
+    brush.setColor(circle_.fill_color);
+    brush.setStyle(Qt::BrushStyle::Dense7Pattern);
+    painter.setBrush(brush);
 
-  painter.drawEllipse(circle_.central_circle.x() - circle_.radius,
-                      circle_.central_circle.y() - circle_.radius,
-                      2 * circle_.radius,
-                      2 * circle_.radius);
+    painter.drawEllipse(circle_.central_circle.x() - circle_.radius,
+                        circle_.central_circle.y() - circle_.radius,
+                        2 * circle_.radius,
+                        2 * circle_.radius);
+  }
+
+  if (is_line_) {
+    QPainter painter(this);
+    QPen pen;
+    pen.setColor(line_.color_pen);
+    pen.setWidth(line_.thickness);
+    painter.setPen(pen);
+    std::cout << line_.from.x() << line_.from.y() << line_.to.x() << line_.to.y();
+    painter.drawLine(line_.from.x(),
+                     line_.from.y(),
+                     line_.to.x(),
+                     line_.to.y());
+  }
 }
 
 void View::ConnectUI() {
@@ -63,5 +79,12 @@ void View::SendCircle(Circle circle) {
 
 void View::SetColorDialog(QColorDialog* dialog) {
   dialog_ = dialog;
+}
+
+void View::SendLine(Line line) {
+  line_ = line;
+  is_line_ = true;
+
+  repaint();
 }
 

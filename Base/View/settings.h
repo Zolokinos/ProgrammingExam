@@ -31,6 +31,7 @@ class Settings : public QMainWindow {
   void RadioButtonClicked(int num);
   void RadiusChanged(int rad);
   void PenThicknessChanged(QString thickness);
+  void PointEditingFinished();
 
  private:
   void SetUpWidget();

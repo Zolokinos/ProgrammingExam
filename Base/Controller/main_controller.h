@@ -16,12 +16,14 @@ class MainController : public QWidget {
  private:
   void ConnectUI();
   static void Exit();
-  void SetCenter(QPoint point);
+  void DrawCircle(QPoint point);
   void SetColor(int num);
   void CallColorDialog();
   void ChangeRadius(int rad);
   void ChangePenThickness(const QString& pen_thickness);
   void ChangeColorPen(QColor color);
+  void DrawLine();
+  void FindCrossing();
 
   Model* model_{};
   View* view_;

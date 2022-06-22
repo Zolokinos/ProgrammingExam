@@ -18,6 +18,7 @@ class View : public QMainWindow {
   void ConnectUI();
   void SetShortCut(QShortcut* shortcut);
   void SendCircle(Circle circle);
+  void SendLine(Line line);
   void SetColorDialog(QColorDialog* dialog);
 
  signals:
@@ -31,7 +32,9 @@ class View : public QMainWindow {
   void mousePressEvent(QMouseEvent* event) override;
 
   bool is_circle_{false};
+  bool is_line_{false};
   Circle circle_{};
+  Line line_{};
   QMenuBar* menu_{};
   QShortcut* call_paint_message_{};
   QColorDialog* dialog_;

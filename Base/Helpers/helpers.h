@@ -27,6 +27,19 @@ struct Circle {
 };
 
 struct Line {
+  Line(QColor qcolor_pen, int qthickness, QPoint qfrom, QPoint qto) :
+  color_pen(qcolor_pen),
+  thickness(qthickness),
+  from(qfrom),
+  to(qto) {}
 
+  Line() = default;
+
+  QColor color_pen{QColor(Qt::black)};
+  int thickness{1};
+  QPoint from;
+  QPoint to;
 };
+
+constexpr double kEps = 10e-6;
 #endif // BASE_HELPERS_H_

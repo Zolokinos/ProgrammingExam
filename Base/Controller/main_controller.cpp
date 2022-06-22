@@ -19,7 +19,7 @@ void MainController::ConnectUI() {
   connect(view_,
           &View::Clicked,
           this,
-          &MainController::SetCenter);
+          &MainController::DrawCircle);
   connect(settings_,
           &Settings::RadioButtonClicked,
           this,
@@ -40,14 +40,26 @@ void MainController::ConnectUI() {
           &View::ColorDialogColorSelected,
           this,
           &MainController::ChangeColorPen);
+  connect(settings_,
+          &Settings::PointEditingFinished,
+          this,
+          &MainController::DrawLine);
+  connect(settings_,
+          &Settings::PointEditingFinished,
+          this,
+          &MainController::FindCrossing);
+  connect(view_,
+          &View::Clicked,
+          this,
+          &MainController::FindCrossing);
 }
 
 void MainController::Exit() {
   exit(0);
 }
 
-void MainController::SetCenter(QPoint point) {
-  model_->SetCenterCircle(point);
+void MainController::DrawCircle(QPoint point) {
+  model_->DrawCircle(point);
 }
 
 void MainController::SetColor(int num) {
@@ -69,4 +81,18 @@ void MainController::ChangePenThickness(const QString& pen_thickness) {
 
 void MainController::ChangeColorPen(QColor color) {
   model_->SetPenColor(color);
+}
+
+void MainController::DrawLine() {
+  if (!model_->IsSomeEmpty()) {
+    model_->DrawLine();
+    std::cout << "Line" << std::endl;
+  }
+  std::cout << "Thick" << std::endl;
+}
+
+void MainController::FindCrossing() {
+  if (model_->EverythingExists()) {
+    model_->FindCrossing();
+  }
 }

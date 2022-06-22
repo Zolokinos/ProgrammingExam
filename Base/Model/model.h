@@ -23,10 +23,14 @@ class Model : public QWidget {
   explicit Model(View* view = nullptr, Settings* settings = nullptr);
   void SetFillColor(int num);
   void CreateDialog();
-  void SetCenterCircle(QPoint point);
+  void DrawCircle(QPoint point);
   void ChangeRadius(int rad);
   void ChangePenThickness(int thickness);
   void SetPenColor(QColor color);
+  bool IsSomeEmpty();
+  void DrawLine();
+  bool EverythingExists() const;
+  void FindCrossing();
 
  private:
   void SetMenu();
@@ -38,6 +42,7 @@ class Model : public QWidget {
   void SetLineEdits();
   void SetSpinBox();
   void SetComboBox();
+  void SendResultCrossing(QString string);
 
   AudioPlayer* audio_player_;
   View* view_;
@@ -53,6 +58,9 @@ class Model : public QWidget {
 
   QPoint from_;
   QPoint to_;
+
+  bool is_circle_{false};
+  bool is_line_{false};
 
   QColorDialog* dialog_;
 

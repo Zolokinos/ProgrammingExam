@@ -39,7 +39,7 @@ void Model::SetUI() {
   settings_->ConnectUI();
 }
 
-void Model::SetCenterCircle(QPoint point) {
+void Model::DrawCircle(QPoint point) {
   central_circle_ = point;
   Circle circle(
       fill_color_,
@@ -48,6 +48,8 @@ void Model::SetCenterCircle(QPoint point) {
       thickness_,
       central_circle_);
   view_->SendCircle(circle);
+
+  is_circle_ = true;
 }
 
 void Model::SetView() {
@@ -130,4 +132,74 @@ void Model::ChangePenThickness(int thickness) {
 
 void Model::SetPenColor(QColor color) {
   color_pen_ = color;
+}
+
+bool Model::IsSomeEmpty() {
+  return !(!from_x_point_->text().isEmpty() * !from_y_point_->text().isEmpty() *
+  !to_x_point_->text().isEmpty() * !to_y_point_->text().isEmpty());
+}
+
+void Model::DrawLine() {
+  from_.setX(from_x_point_->text().toInt());
+  from_.setY(from_y_point_->text().toInt());
+
+  to_.setX(to_x_point_->text().toInt());
+  to_.setY(to_y_point_->text().toInt());
+
+  Line line(color_pen_,
+            thickness_,
+            from_,
+            to_);
+
+  view_->SendLine(line);
+
+  is_line_ = true;
+}
+
+bool Model::EverythingExists() const {
+  return is_circle_ * is_line_;
+}
+
+void Model::FindCrossing() {
+  double a =
+      sqrt((central_circle_.x() - from_.x()) *
+      (central_circle_.x() - from_.x()) +
+      (central_circle_.y() - from_.y()) *
+      (central_circle_.y() - from_.y()));
+  double b =
+      sqrt((central_circle_.x() - to_.x()) *
+          (central_circle_.x() - to_.x()) +
+          (central_circle_.y() - to_.y()) *
+              (central_circle_.y() - to_.y()));
+
+  if (a < radius_ - kEps && b < radius_ - kEps) {
+    SendResultCrossing("Inside");
+    return;
+  }
+
+  if (a < radius_ - kEps && b > radius_ + kEps ||
+      b < radius_ - kEps && a > radius_ + kEps) {
+    SendResultCrossing("Crossing");
+    return;
+  }
+  double c =
+      sqrt((from_.x() - to_.x()) *
+          (from_.x() - to_.x()) +
+          (from_.y() - to_.y()) *
+              (from_.y() - to_.y()));
+  double s =
+      sqrt((a + b + c) / 2 * (a + b - c) / 2 *
+      (a - b + c) / 2 * (-a + b + c) / 2);
+  double h = 2 * s / c;
+  if (h < radius_ + kEps) {
+    SendResultCrossing("Crossing");
+    return;
+  } else {
+    SendResultCrossing("Non-crossing");
+    return;
+  }
+}
+
+void Model::SendResultCrossing(QString string) {
+  is_intersection_->setText(string);
 }
