@@ -19,10 +19,20 @@ void View::SetMenu(QMenuBar* menu) {
 }
 
 void View::paintEvent(QPaintEvent*) {
-  QPainter painter(this);
-  painter.setPen(Qt::blue);
-  painter.setFont(QFont("Arial", 30));
-  painter.drawText(rect(), Qt::AlignCenter, "Qt");;
 }
+
 void View::ConnectUI() {
+  connect(call_paint_message_,
+          &QShortcut::activated,
+          this,
+          &View::CallDialog);
 }
+
+void View::mousePressEvent(QMouseEvent* event) {
+  emit Clicked(event->pos());
+}
+
+void View::SetShortCut(QShortcut* shortcut) {
+  call_paint_message_ = shortcut;
+}
+

@@ -5,6 +5,7 @@
 #include <QScreen>
 #include "Base/Model/model.h"
 #include "Base/View/view.h"
+#include "Base/View/settings.h"
 
 class MainController : public QWidget {
   Q_OBJECT
@@ -15,9 +16,12 @@ class MainController : public QWidget {
  private:
   void ConnectUI();
   static void Exit();
+  void SetCenter(QPoint point);
+  void SetColor(int num);
 
   Model* model_{};
   View* view_;
+  Settings* settings_;
 };
 
 #endif // BASE_CONTROLLER_MAIN_CONTROLLER_H__

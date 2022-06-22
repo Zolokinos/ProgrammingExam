@@ -22,7 +22,7 @@ set(MODELS
 
 set(VIEWS
         Base/View/view.cpp
-        Base/View/audioplayer.cpp)
+        Base/View/audioplayer.cpp Base/View/settings.cpp Base/View/settings.h)
 
 set(CONTROLLERS
         Base/Controller/main_controller.cpp)
