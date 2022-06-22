@@ -6,6 +6,7 @@
 #include <QShortcut>
 #include <QPoint>
 #include <QColor>
+#include "Base/Helpers/helpers.h"
 
 class View : public QMainWindow {
  Q_OBJECT
@@ -15,7 +16,7 @@ class View : public QMainWindow {
   void SetMenu(QMenuBar* menu);
   void ConnectUI();
   void SetShortCut(QShortcut* shortcut);
-  void DrawCircle(QPoint point, QColor color, QColor color_pen_, int rad);
+  void SendCircle(Circle circle);
 
  signals:
   void ExitRequested();
@@ -26,6 +27,8 @@ class View : public QMainWindow {
   void paintEvent(QPaintEvent*) override;
   void mousePressEvent(QMouseEvent* event) override;
 
+  bool is_circle_{false};
+  Circle circle_{};
   QMenuBar* menu_{};
   QShortcut* call_paint_message_{};
 };

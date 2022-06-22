@@ -7,15 +7,14 @@ Model::Model(View* view, Settings* settings) :
     settings_(settings),
     menu_(new QMenuBar),
     audio_player_(new AudioPlayer),
-    color_(QColor(Qt::black)),
-    color_pen_(QColor(Qt::black)),
     buttons_(new QButtonGroup),
     from_x_point_(new QLineEdit),
     from_y_point_(new QLineEdit),
     to_x_point_(new QLineEdit),
     to_y_point_(new QLineEdit),
     spin_box_(new QSpinBox),
-    combo_box_(new QComboBox) {
+    combo_box_(new QComboBox),
+    is_intersection_(new QLabel("")) {
   SetAudio();
   SetMenu();
   SetView();
@@ -40,7 +39,14 @@ void Model::SetUI() {
 }
 
 void Model::SetCenterCircle(QPoint point) {
-  view_->DrawCircle(point, color_, color_pen_, radius_);
+  central_circle_ = point;
+  Circle circle(
+      fill_color_,
+      color_pen_,
+      radius_,
+      thickness_,
+      central_circle_);
+  view_->SendCircle(circle);
 }
 
 void Model::SetView() {
@@ -55,10 +61,11 @@ void Model::SetSettings() {
   SetLineEdits();
   SetSpinBox();
   SetComboBox();
+  assert(is_intersection_);
+  settings_->SetInteraction(is_intersection_);
 }
 
 void Model::SetFillColor(int num) {
-  std::cout << num;
   switch (num) {
     case 0: {
       fill_color_ = QColor(Qt::red);
@@ -83,6 +90,7 @@ void Model::SetRadioButtons() {
   buttons_->addButton(new QRadioButton("Fill blue"), 1);
   buttons_->addButton(new QRadioButton("Fill black"), 2);
   assert(!buttons_->buttons().empty());
+  buttons_->button(2)->click();
   settings_->SetRadioButtons(buttons_);
 }
 
@@ -94,12 +102,15 @@ void Model::SetLineEdits() {
 }
 
 void Model::SetSpinBox() {
+  spin_box_->setMaximum(INT32_MAX);
   settings_->SetSpinBox(spin_box_);
 }
 
 void Model::SetComboBox() {
-  combo_box_->addItems({"", "1", "10"});
-
+  for (int i = 1; i < 17; ++i) {
+    combo_box_->addItems({QString::number(i)});
+  }
+  combo_box_->setCurrentIndex(0);
   settings_->SetComboBox(combo_box_);
 }
 
@@ -109,9 +120,10 @@ void Model::CreateDialog() {
   color_pen_ = dialog->currentColor();
 }
 
-void Model::SetFrom(int from) {
-
+void Model::ChangeRadius(int rad) {
+  radius_ = rad;
 }
 
-
-
+void Model::ChangePenThickness(int thickness) {
+  thickness_ = thickness;
+}

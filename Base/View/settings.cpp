@@ -24,16 +24,19 @@ void Settings::SetRadioButtons(QButtonGroup* buttons) {
 
 void Settings::ConnectUI() {
   assert(buttons_->buttons()[0] != nullptr);
-    connect(buttons_,
-            &QButtonGroup::idClicked,
-            this,
-            &Settings::RadioButtonClicked);
+
+  connect(buttons_,
+          &QButtonGroup::idClicked,
+          this,
+          &Settings::RadioButtonClicked);
+
   connect(spin_box_,
           &QSpinBox::valueChanged,
           this,
           &Settings::RadiusChanged);
+
   connect(combo_box_,
-          &QComboBox::activated,
+          &QComboBox::textActivated,
           this,
           &Settings::PenThicknessChanged);
 }
@@ -55,9 +58,14 @@ void Settings::SetLineEdits(QLineEdit* from_x_point,
   QVBoxLayout* box_layout_from = new QVBoxLayout();
   QVBoxLayout* box_layout_to = new QVBoxLayout();
   box_layout_from->addWidget(from_x_point_);
-  box_layout_from->addWidget(to_point_);
+  box_layout_from->addWidget(from_y_point_);
+  box_layout_to->addWidget(to_x_point_);
+  box_layout_to->addWidget(to_y_point_);
 
-  layout_->addLayout(box_layout);
+  layout_->addLayout(box_layout_from);
+  layout_->addLayout(box_layout_to);
+
+  SetFocusTransition();
 }
 
 void Settings::SetSpinBox(QSpinBox* spin_box) {
@@ -68,4 +76,34 @@ void Settings::SetSpinBox(QSpinBox* spin_box) {
 void Settings::SetComboBox(QComboBox* combo_box) {
   combo_box_ = combo_box;
   layout_->addWidget(combo_box_);
+}
+
+void Settings::SetInteraction(QLabel* is_intersection) {
+  is_intersection_ = is_intersection;
+  is_intersection_->setVisible(true);
+  is_intersection_->setText("Waiting");
+  is_intersection_->setParent(this);
+  assert(is_intersection_);
+  layout_->addWidget(is_intersection_);
+}
+
+void Settings::SetFocusTransition() {
+  connect(from_x_point_,
+          &QLineEdit::editingFinished,
+          this,
+          [&]{
+    from_y_point_->setFocus();
+  });
+  connect(from_y_point_,
+          &QLineEdit::editingFinished,
+          this,
+          [&]{
+    to_x_point_->setFocus();
+  });
+  connect(to_x_point_,
+          &QLineEdit::editingFinished,
+          this,
+          [&]{
+    to_y_point_->setFocus();
+  });
 }

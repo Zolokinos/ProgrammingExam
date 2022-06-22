@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QComboBox>
+#include <QLabel>
 
 class Settings : public QMainWindow {
  Q_OBJECT
@@ -21,13 +22,15 @@ class Settings : public QMainWindow {
                     QLineEdit* from_y_point,
                     QLineEdit* to_x_point,
                     QLineEdit* to_y_point);
+  void SetFocusTransition();
   void SetSpinBox(QSpinBox* spin_box);
   void SetComboBox(QComboBox* combo_box);
+  void SetInteraction(QLabel* is_intersection_);
 
   signals:
   void RadioButtonClicked(int num);
   void RadiusChanged(int rad);
-  void PenThicknessChanged(int id);
+  void PenThicknessChanged(QString thickness);
 
  private:
   void SetUpWidget();
@@ -39,6 +42,7 @@ class Settings : public QMainWindow {
   QLineEdit* to_y_point_;
   QSpinBox* spin_box_;
   QComboBox* combo_box_;
+  QLabel* is_intersection_;
 
   QHBoxLayout* layout_;
   QWidget* central_;

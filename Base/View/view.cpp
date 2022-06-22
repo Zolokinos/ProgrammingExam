@@ -20,6 +20,22 @@ void View::SetMenu(QMenuBar* menu) {
 }
 
 void View::paintEvent(QPaintEvent*) {
+  if (is_circle_) {
+    QPainter painter(this);
+    QPen pen;
+    pen.setColor(circle_.color_pen);
+    pen.setWidth(circle_.thickness);
+    painter.setPen(pen);
+    QBrush brush;
+    brush.setColor(circle_.fill_color);
+    brush.setStyle(Qt::BrushStyle::Dense7Pattern);
+    painter.setBrush(brush);
+
+    painter.drawEllipse(circle_.central_circle.x() - circle_.radius,
+                        circle_.central_circle.y() - circle_.radius,
+                        2 * circle_.radius,
+                        2 * circle_.radius);
+  }
 }
 
 void View::ConnectUI() {
@@ -37,10 +53,10 @@ void View::SetShortCut(QShortcut* shortcut) {
   call_paint_message_ = shortcut;
 }
 
-void View::DrawCircle(QPoint point, QColor color, QColor color_pen, int rad) {
-  QPainter p(this);
-  p.setBrush(color);
-  p.setPen(color_pen);
-  p.drawEllipse(point.x() - rad, point.y() - rad, rad, rad);
+void View::SendCircle(Circle circle) {
+  circle_ = circle;
+  is_circle_ = true;
+
+  repaint();
 }
 

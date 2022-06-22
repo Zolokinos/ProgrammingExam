@@ -9,10 +9,12 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QColorDialog>
+#include <QLabel>
 
 #include "Base/View/view.h"
 #include "Base/View/settings.h"
 #include "Base/View/audioplayer.h"
+#include "Base/Helpers/helpers.h"
 
 class Model : public QWidget {
  Q_OBJECT
@@ -22,7 +24,8 @@ class Model : public QWidget {
   void SetFillColor(int num);
   void CreateDialog();
   void SetCenterCircle(QPoint point);
-  void SetFrom(int from);
+  void ChangeRadius(int rad);
+  void ChangePenThickness(int thickness);
 
  private:
   void SetMenu();
@@ -34,27 +37,29 @@ class Model : public QWidget {
   void SetLineEdits();
   void SetSpinBox();
   void SetComboBox();
-
   AudioPlayer* audio_player_;
   View* view_;
   Settings* settings_;
   QMenuBar* menu_;
   QShortcut* call_paint_message_{};
-  QColor color_;
-  QColor color_pen_;
-  int radius_;
-  int width_;
+
+  QColor fill_color_{QColor(Qt::black)};
+  QColor color_pen_{QColor(Qt::black)};
+  int radius_{0};
+  int thickness_{1};
+  QPoint central_circle_;
+
   QPoint from_;
   QPoint to_;
 
   QButtonGroup* buttons_;
-  QColor fill_color_{};
   QLineEdit* from_x_point_;
   QLineEdit* from_y_point_;
   QLineEdit* to_x_point_;
   QLineEdit* to_y_point_;
   QSpinBox* spin_box_;
   QComboBox* combo_box_;
+  QLabel* is_intersection_;
 };
 
 #endif // BASE_CONTROLLER_MODEL_H__
