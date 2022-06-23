@@ -19,6 +19,7 @@ class MainController : public QWidget {
   void DrawCircle(QPoint point);
   void SetColor(int num);
   void CallColorDialog();
+  void CallFileDialog();
   void ChangeRadius(int rad);
   void ChangePenThickness(const QString& pen_thickness);
   void ChangeColorPen(QColor color);

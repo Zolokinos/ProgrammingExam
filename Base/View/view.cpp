@@ -58,7 +58,7 @@ void View::ConnectUI() {
   connect(call_paint_message_,
           &QShortcut::activated,
           this,
-          &View::CallDialog);
+          &View::CalledDialog);
   connect(dialog_,
           &QColorDialog::colorSelected,
           this,

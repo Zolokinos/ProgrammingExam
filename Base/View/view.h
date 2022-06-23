@@ -24,7 +24,7 @@ class View : public QMainWindow {
  signals:
   void ExitRequested();
   void Clicked(QPoint point);
-  void CallDialog();
+  void CalledDialog();
   void ColorDialogColorSelected(QColor color);
 
  private:

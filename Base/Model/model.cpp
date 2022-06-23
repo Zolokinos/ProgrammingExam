@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "model.h"
+#include "Base/Helpers/styles.h"
 Model::Model(View* view, Settings* settings) :
     view_(view),
     settings_(settings),
@@ -12,10 +13,14 @@ Model::Model(View* view, Settings* settings) :
     from_y_point_(new QLineEdit),
     to_x_point_(new QLineEdit),
     to_y_point_(new QLineEdit),
-    dialog_(new QColorDialog),
+    color_dialog_(new QColorDialog),
+    file_dialog_(new QFileDialog),
+    error_message_(new QMessageBox),
     spin_box_(new QSpinBox),
     combo_box_(new QComboBox),
-    is_intersection_(new QLabel("")) {
+    is_intersection_(new QLabel("")),
+    call_paint_message_(new QShortcut(Qt::Key_Space, view_)),
+    call_file_message_(new QShortcut(Qt::Key_Space, settings_)) {
   SetAudio();
   SetMenu();
   SetView();
@@ -53,13 +58,17 @@ void Model::DrawCircle(QPoint point) {
 }
 
 void Model::SetView() {
-  call_paint_message_ = new QShortcut(Qt::Key_Space, view_);
   view_->SetShortCut(call_paint_message_);
-  view_->SetColorDialog(dialog_);
+  SetColorDialog();
 }
 
 void Model::SetSettings() {
   settings_->SetLayout();
+
+  SetFileDialog();
+  assert(call_file_message_->key() == Qt::Key_Space);
+  settings_->SetShortCut(call_file_message_);
+  SetErrorFileDialog();
 
   SetRadioButtons();
   SetLineEdits();
@@ -122,8 +131,8 @@ void Model::SetComboBox() {
   settings_->SetComboBox(combo_box_);
 }
 
-void Model::CreateDialog() {
-  dialog_->open();
+void Model::CreateColorDialog() {
+  color_dialog_->open();
 }
 
 void Model::ChangeRadius(int rad) {
@@ -206,4 +215,35 @@ void Model::FindCrossing() {
 
 void Model::SendResultCrossing(QString string) {
   is_intersection_->setText(string);
+}
+
+void Model::SetFileDialog() {;
+  settings_->SetFileDialog(file_dialog_);
+}
+
+void Model::SetColorDialog() {
+  view_->SetColorDialog(color_dialog_);
+}
+
+void Model::CreateFileDialog() {
+  QStringList file_names;
+  file_names = file_dialog_->getOpenFileNames(this,
+                                 "Choose Background image",
+                                 "",
+                                 "Images (*.png *.xpm *.jpg)");
+  if (!file_names.isEmpty()) {
+    if (file_names.size() > 1) {
+      settings_->SendFileDialogError();
+    } else {
+      settings_->setStyleSheet(kMainWindowSettingsPicture);
+      settings_->SetCustomBackground(file_names.front());
+    }
+  }
+}
+
+void Model::SetErrorFileDialog() {
+  error_message_->setWindowTitle("Failed");
+  error_message_->setText("Please choose only one file");
+  error_message_->setIcon(QMessageBox::Icon::Warning);
+  settings_->SetErrorFileDialog(error_message_);
 }

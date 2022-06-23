@@ -25,9 +25,13 @@ void MainController::ConnectUI() {
           this,
           &MainController::SetColor);
   connect(view_,
-          &View::CallDialog,
+          &View::CalledDialog,
           this,
           &MainController::CallColorDialog);
+  connect(settings_,
+          &Settings::CalledDialog,
+          this,
+          &MainController::CallFileDialog);
   connect(settings_,
           &Settings::RadiusChanged,
           this,
@@ -67,7 +71,7 @@ void MainController::SetColor(int num) {
 }
 
 void MainController::CallColorDialog() {
-  model_->CreateDialog();
+  model_->CreateColorDialog();
 }
 
 void MainController::ChangeRadius(int rad) {
@@ -95,4 +99,9 @@ void MainController::FindCrossing() {
   if (model_->EverythingExists()) {
     model_->FindCrossing();
   }
+}
+
+void MainController::CallFileDialog() {
+  std::cout << "Success" << std::endl;
+  model_->CreateFileDialog();
 }

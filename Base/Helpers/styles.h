@@ -116,6 +116,9 @@ const QString kMainWindowSettings =
     "QMainWindow {"
     "image: url(:/Base/Resources/Arrow.png);}";
 
+const QString kMainWindowSettingsPicture =
+    "QMainWindow {}";
+
 const QString kMainWindowView =
     "QMainWindow {"
     "background-color: white;}";
@@ -127,7 +130,14 @@ const QString kIsIntersectionLabelBlack =
     "padding: 2px;"
     "margin-top: 20px;"
     "margin-bottom: 20px;"
-    "background-color: white;}";
+    "background-color: white;"
+    "font-family: \"Calibri\";"
+    "font-size: 20px;"
+    "border-style: solid;"
+    "border-top-color: darkgray;"
+    "border-right-color: darkgray;"
+    "border-top-width: 1px;"
+    "border-right-width: 1px;}";
 
 const QString kIsIntersectionLabelBlue =
     "QLabel {"
@@ -136,7 +146,14 @@ const QString kIsIntersectionLabelBlue =
     "padding: 2px;"
     "margin-top: 20px;"
     "margin-bottom: 20px;"
-    "background-color: white;}";
+    "background-color: white;"
+    "font-family: \"Calibri\";"
+    "font-size: 20px;"
+    "border-style: solid;"
+    "border-top-color: lightblue;"
+    "border-right-color: lightblue;"
+    "border-top-width: 1px;"
+    "border-right-width: 1px;}";
 
 const QString kIsIntersectionLabelRed =
     "QLabel {"
@@ -145,6 +162,23 @@ const QString kIsIntersectionLabelRed =
     "padding: 2px;"
     "margin-top: 20px;"
     "margin-bottom: 20px;"
-    "background-color: white;}";
+    "background-color: white;"
+    "font-family: \"Calibri\";"
+    "font-size: 20px;"
+    "border-style: solid;"
+    "border-top-color: pink;"
+    "border-right-color: pink;"
+    "border-top-width: 1px;"
+    "border-right-width: 1px;}";
+
+const QString kMessage =
+    "QMessageBox {"
+    "background-color: pink;"
+    "font-size: 20px;"
+    "font-style: italic;}"
+
+    "QMessageBox QPushButton { "
+    "color: white;"
+    "background-color: green;}";
 
 #endif // PROGRAMMINGEXAM_BASE_HELPERS_STYLES_H_

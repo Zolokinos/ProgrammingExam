@@ -9,6 +9,9 @@
 #include <QSpinBox>
 #include <QComboBox>
 #include <QLabel>
+#include <QShortcut>
+#include <QMessageBox>
+#include <QKeyEvent>
 
 class Settings : public QMainWindow {
  Q_OBJECT
@@ -23,6 +26,12 @@ class Settings : public QMainWindow {
                     QLineEdit* to_x_point,
                     QLineEdit* to_y_point);
   void SetFocusTransition();
+  void SetShortCut(QShortcut* call_file_message);
+  void SetFileDialog(QFileDialog* file_dialog);
+  void SetErrorFileDialog(QMessageBox* error_message);
+  void SendFileDialogError();
+  void SetCustomBackground(QString filename);
+
   void SetSpinBox(QSpinBox* spin_box);
   void SetComboBox(QComboBox* combo_box);
   void SetInteraction(QLabel* is_intersection_);
@@ -36,9 +45,14 @@ class Settings : public QMainWindow {
   void RadiusChanged(int rad);
   void PenThicknessChanged(QString thickness);
   void PointEditingFinished();
+  void CalledDialog();
 
  private:
   void SetUpWidget();
+
+  QFileDialog* file_dialog_;
+  QShortcut* call_file_message_;
+  QMessageBox* error_message_;
 
   QButtonGroup* buttons_;
   QLineEdit* from_x_point_;
@@ -53,4 +67,4 @@ class Settings : public QMainWindow {
   QWidget* central_;
 };
 
-#endif //PROGRAMMINGEXAM_BASE_VIEW_SETTINGS_H__
+#endif // PROGRAMMINGEXAM_BASE_VIEW_SETTINGS_H__

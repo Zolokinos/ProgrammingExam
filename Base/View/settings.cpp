@@ -1,5 +1,8 @@
 #include <QHBoxLayout>
 #include <QValidator>
+#include <QFileDialog>
+#include <QPixmap>
+#include <QPalette>
 #include <iostream>
 
 #include "settings.h"
@@ -43,6 +46,11 @@ void Settings::ConnectUI() {
           &QComboBox::textActivated,
           this,
           &Settings::PenThicknessChanged);
+
+  connect(call_file_message_,
+          &QShortcut::activated,
+          this,
+          &Settings::CalledDialog);
 }
 
 void Settings::SetLayout() {
@@ -145,6 +153,8 @@ void Settings::SetStyleSheet() {
   combo_box_->setStyleSheet(kComboBoxBlack);
   // Label
   is_intersection_->setStyleSheet(kIsIntersectionLabelBlack);
+  // MessageBox
+  error_message_->setStyleSheet(kMessage);
 }
 
 void Settings::SetRedStyle() {
@@ -187,4 +197,29 @@ void Settings::SetBlackStyle() {
   combo_box_->setStyleSheet(kComboBoxBlack);
   // Label
   is_intersection_->setStyleSheet(kIsIntersectionLabelBlack);
+}
+
+void Settings::SetFileDialog(QFileDialog* file_dialog) {
+  file_dialog_ = file_dialog;
+}
+
+void Settings::SetShortCut(QShortcut* call_file_message) {
+  call_file_message_ = call_file_message;
+}
+
+void Settings::SetErrorFileDialog(QMessageBox* error_message) {
+  error_message_ = error_message;
+}
+
+void Settings::SendFileDialogError() {
+  error_message_->show();
+  error_message_->setFocus();
+}
+
+void Settings::SetCustomBackground(QString filename) {
+  QPixmap background(filename);
+  background = background.scaled(size(), Qt::IgnoreAspectRatio);
+  QPalette palette;
+  palette.setBrush(QPalette::Window, background);
+  setPalette(palette);
 }

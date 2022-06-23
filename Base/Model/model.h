@@ -10,6 +10,8 @@
 #include <QComboBox>
 #include <QColorDialog>
 #include <QLabel>
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include "Base/View/view.h"
 #include "Base/View/settings.h"
@@ -22,7 +24,10 @@ class Model : public QWidget {
  public:
   explicit Model(View* view = nullptr, Settings* settings = nullptr);
   void SetFillColor(int num);
-  void CreateDialog();
+  void CreateColorDialog();
+  void CreateFileDialog();
+  void SetErrorFileDialog();
+
   void DrawCircle(QPoint point);
   void ChangeRadius(int rad);
   void ChangePenThickness(int thickness);
@@ -38,6 +43,8 @@ class Model : public QWidget {
   void SetUI();
   void SetView();
   void SetSettings();
+  void SetFileDialog();
+  void SetColorDialog();
   void SetRadioButtons();
   void SetLineEdits();
   void SetSpinBox();
@@ -49,6 +56,7 @@ class Model : public QWidget {
   Settings* settings_;
   QMenuBar* menu_;
   QShortcut* call_paint_message_{};
+  QShortcut* call_file_message_{};
 
   QColor fill_color_{QColor(Qt::black)};
   QColor color_pen_{QColor(Qt::black)};
@@ -62,7 +70,9 @@ class Model : public QWidget {
   bool is_circle_{false};
   bool is_line_{false};
 
-  QColorDialog* dialog_;
+  QColorDialog* color_dialog_;
+  QFileDialog* file_dialog_;
+  QMessageBox* error_message_;
 
   QButtonGroup* buttons_;
   QLineEdit* from_x_point_;
