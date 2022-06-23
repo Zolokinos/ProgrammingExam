@@ -112,9 +112,13 @@ const QString kComboBoxRed =
     "selection-background-color: pink;"
     "}";
 // font: bold 14px;
-const QString kMainWindow =
+const QString kMainWindowSettings =
     "QMainWindow {"
     "image: url(:/Base/Resources/Arrow.png);}";
+
+const QString kMainWindowView =
+    "QMainWindow {"
+    "background-color: white;}";
 
 const QString kIsIntersectionLabelBlack =
     "QLabel {"

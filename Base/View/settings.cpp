@@ -9,6 +9,7 @@ Settings::Settings() :
     layout_(new QHBoxLayout()),
     central_(new QWidget(this)) {
   SetUpWidget();
+  move(900, 160);
 }
 
 void Settings::SetUpWidget() {
@@ -117,7 +118,7 @@ void Settings::SetFocusTransition() {
 
 void Settings::SetStyleSheet() {
   // RadioButtons
-  setStyleSheet(kMainWindow);
+  setStyleSheet(kMainWindowSettings);
   for (int i = 0; i < 3; ++i) {
     buttons_->button(i)->setStyleSheet(kRadioButton);
   }

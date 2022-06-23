@@ -3,11 +3,13 @@
 
 #include "view.h"
 #include "Base/Helpers/helpers.h"
+#include "Base/Helpers/styles.h"
 
 View::View() {
   setFixedSize(800, 600);
   show();
   setWindowTitle("Paint Zone");
+  setStyleSheet(kMainWindowView);
 }
 
 void View::SetMenu(QMenuBar* menu) {
