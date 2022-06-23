@@ -30,7 +30,7 @@ void Model::SetMenu() {
 
 void Model::SetAudio() {
   audio_player_->CreateAudioOutput();
-  audio_player_->ChooseStream(QUrl("qrc:00199.mp3"));
+  audio_player_->ChooseStream(QUrl("qrc:Base/Resources/00199.mp3"));
   audio_player_->TurnOn();
 }
 
@@ -67,19 +67,23 @@ void Model::SetSettings() {
   SetComboBox();
   assert(is_intersection_);
   settings_->SetInteraction(is_intersection_);
+  settings_->SetStyleSheet();
 }
 
 void Model::SetFillColor(int num) {
   switch (num) {
     case 0: {
+      settings_->SetRedStyle();
       fill_color_ = QColor(Qt::red);
       break;
     }
     case 1: {
+      settings_->SetBlueStyle();
       fill_color_ = QColor(Qt::blue);
       break;
     }
     case 2: {
+      settings_->SetBlackStyle();
       fill_color_ = QColor(Qt::black);
       break;
     }

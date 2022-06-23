@@ -26,6 +26,10 @@ class Settings : public QMainWindow {
   void SetSpinBox(QSpinBox* spin_box);
   void SetComboBox(QComboBox* combo_box);
   void SetInteraction(QLabel* is_intersection_);
+  void SetStyleSheet();
+  void SetRedStyle();
+  void SetBlueStyle();
+  void SetBlackStyle();
 
   signals:
   void RadioButtonClicked(int num);

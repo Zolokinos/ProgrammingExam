@@ -22,7 +22,8 @@ set(MODELS
 
 set(VIEWS
         Base/View/view.cpp
-        Base/View/audioplayer.cpp Base/View/settings.cpp Base/View/settings.h)
+        Base/View/audioplayer.cpp
+        Base/View/settings.cpp)
 
 set(CONTROLLERS
         Base/Controller/main_controller.cpp)
@@ -31,8 +32,7 @@ set(SOURCES
         Base/main.cpp
         ${MODELS}
         ${VIEWS}
-        ${CONTROLLERS}
-        )
+        ${CONTROLLERS})
 
 set(LIBRARIES
         Qt::Core
@@ -40,7 +40,6 @@ set(LIBRARIES
         Qt::Widgets
         Qt::Multimedia
         )
-
 
 qt6_add_big_resources(RESOURCES resources.qrc)
 

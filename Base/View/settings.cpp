@@ -1,7 +1,10 @@
 #include <QHBoxLayout>
+#include <QValidator>
 #include <iostream>
 
 #include "settings.h"
+#include "Base/Helpers/styles.h"
+
 Settings::Settings() :
     layout_(new QHBoxLayout()),
     central_(new QWidget(this)) {
@@ -110,4 +113,77 @@ void Settings::SetFocusTransition() {
           &QLineEdit::editingFinished,
           this,
           &Settings::PointEditingFinished);
+}
+
+void Settings::SetStyleSheet() {
+  // RadioButtons
+  setStyleSheet(kMainWindow);
+  for (int i = 0; i < 3; ++i) {
+    buttons_->button(i)->setStyleSheet(kRadioButton);
+  }
+  // LineEdits
+  from_x_point_->setValidator(
+      new QIntValidator(0, INT32_MAX));
+  from_y_point_->setValidator(
+      new QIntValidator(0, INT32_MAX));
+  to_x_point_->setValidator(
+      new QIntValidator(0, INT32_MAX));
+  to_y_point_->setValidator(
+      new QIntValidator(0, INT32_MAX));
+  from_x_point_->setPlaceholderText("x point: from");
+  from_y_point_->setPlaceholderText("y point: from");
+  to_x_point_->setPlaceholderText("x point: to");
+  to_y_point_->setPlaceholderText("y point: to");
+  from_x_point_->setStyleSheet(kLineEditBlack);
+  from_y_point_->setStyleSheet(kLineEditBlack);
+  to_x_point_->setStyleSheet(kLineEditBlack);
+  to_y_point_->setStyleSheet(kLineEditBlack);
+  // SpinBox
+  spin_box_->setStyleSheet(kSpinBoxBlack);
+  // ComboBox
+  combo_box_->setStyleSheet(kComboBoxBlack);
+  // Label
+  is_intersection_->setStyleSheet(kIsIntersectionLabelBlack);
+}
+
+void Settings::SetRedStyle() {
+  // LineEdits
+  from_x_point_->setStyleSheet(kLineEditRed);
+  from_y_point_->setStyleSheet(kLineEditRed);
+  to_x_point_->setStyleSheet(kLineEditRed);
+  to_y_point_->setStyleSheet(kLineEditRed);
+  // SpinBox
+  spin_box_->setStyleSheet(kSpinBoxRed);
+  // ComboBox
+  combo_box_->setStyleSheet(kComboBoxRed);
+  // Label
+  is_intersection_->setStyleSheet(kIsIntersectionLabelRed);
+}
+
+void Settings::SetBlueStyle() {
+  // LineEdits
+  from_x_point_->setStyleSheet(kLineEditBlue);
+  from_y_point_->setStyleSheet(kLineEditBlue);
+  to_x_point_->setStyleSheet(kLineEditBlue);
+  to_y_point_->setStyleSheet(kLineEditBlue);
+  // SpinBox
+  spin_box_->setStyleSheet(kSpinBoxBlue);
+  // ComboBox
+  combo_box_->setStyleSheet(kComboBoxBlue);
+  // Label
+  is_intersection_->setStyleSheet(kIsIntersectionLabelBlue);
+}
+
+void Settings::SetBlackStyle() {
+  // LineEdits
+  from_x_point_->setStyleSheet(kLineEditBlack);
+  from_y_point_->setStyleSheet(kLineEditBlack);
+  to_x_point_->setStyleSheet(kLineEditBlack);
+  to_y_point_->setStyleSheet(kLineEditBlack);
+  // SpinBox
+  spin_box_->setStyleSheet(kSpinBoxBlack);
+  // ComboBox
+  combo_box_->setStyleSheet(kComboBoxBlack);
+  // Label
+  is_intersection_->setStyleSheet(kIsIntersectionLabelBlack);
 }

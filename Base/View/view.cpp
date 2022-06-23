@@ -7,6 +7,7 @@
 View::View() {
   setFixedSize(800, 600);
   show();
+  setWindowTitle("Paint Zone");
 }
 
 void View::SetMenu(QMenuBar* menu) {

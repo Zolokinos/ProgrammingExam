@@ -1,5 +1,13 @@
 <RCC>
     <qresource>
-        <file>00199.mp3</file>
+        <file>Base/Resources/00199.mp3</file>
+        <file>Base/Resources/CheckedCommon.png</file>
+        <file>Base/Resources/UncheckedCommon.png</file>
+        <file>Base/Resources/CheckedHovered.png</file>
+        <file>Base/Resources/UncheckedHovered.png</file>
+        <file>Base/Resources/CheckedPressed.png</file>
+        <file>Base/Resources/UncheckedPressed.png</file>
+        <file>Base/Resources/Arrow.png</file>
+        <file>Base/Resources/HowToFoolTheNeighbour.jpg</file>
     </qresource>
 </RCC>
